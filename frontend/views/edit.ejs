@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%=title %></title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <%- include("header") -%>
+      <div class="main">
+        <form  action='/posts/post<%= post.id %>/edit' method="post" enctype='multipart/form-data'>
+          <div>
+            <div>
+              <h1>edit post</h1>
+            </div>
+            <div>
+              <textarea rows='1' cols='20' class='input' name='post[title]' placeholder='Text'><%=post.title%></textarea>
+            </div>
+            <div>
+              <textarea rows='8' cols='20' class='input' name='post[description]' placeholder='Text'><%=post.description%></textarea>
+            </div>
+            <div class='inlie'>
+              <label for="upload-photo">change image...</label>
+              <input type="file" name="pic" id="upload-photo" name='post[image]' accept=".jpg, .jpeg, .png"/>
+            </div>
+            <div class='inline'>
+              <input class="input-button" type='submit' value='edit post' />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

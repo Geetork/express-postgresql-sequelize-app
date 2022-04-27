@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%=title %></title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <%- include("header") -%>
+      <div class="main">
+        <% if ( title == 'welcome') { %>
+          <div id='posts'>
+            <div><h1>blog posts</h1></div>
+
+            <% if ( posts ) { %>
+              <% posts.forEach(function(post) {%>
+                <div>
+                  <h3 style='padding-bottom: 10px;'><%= post.title %></h3>
+                  <div class='post'>
+                    <img src="../<%= post.url %>" class='inline' alt="" height='150' align="top" vspace='10' />
+                    <div class='inline text'>
+                      <%= post.description %>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="inline meta">
+                      <div class='inline'>Author: <%= post.author %></div>
+                      <div class='inline' id='update-time-<%= post.id %>'>Last update: <% getDate(post.updatedAt) %></div>
+                    </div>
+                  </div>
+                </div>
+                <% function getDate(date) { %>
+                    <% var updatedAt = date + ' '; %>
+                    <% var arr = updatedAt.split(' ') %>
+                    <%= arr[2] %> <%= arr[1] %> <%= arr[3] %> <%= arr[4] %>
+                <% } %>
+            <% })} %>
+          </div>
+        <% } %>
+        <% if ( title != 'welcome') { %>
+        <form  action='/<%= title %>' method="post">
+          <div>
+            <div>
+              <h1><%= title %></h1>
+            </div>
+            <div>
+              <input class="input" type='text' name='user[login]' placeholder='Username' />
+            </div>
+            <div>
+              <input class="input" type='password' name='user[password]' placeholder='Password' />
+            </div>
+            <div>
+              <input class="input-button" type='submit' value='<%= title %>' />
+            </div>
+          </div>
+        </form>
+        <div>
+          <% if (locals.message) {%>
+            <%= locals.message %>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

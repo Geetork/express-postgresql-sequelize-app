@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%=title %></title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <%- include("header") -%>
+      <div class="main">
+        <form  action='/posts' method="post" enctype='multipart/form-data'>
+          <div>
+            <div>
+              <h1>add post</h1>
+            </div>
+            <div>
+              <textarea rows='1' cols='20' class='input' name='post[title]' placeholder='Title'></textarea>
+            </div>
+            <div>
+              <textarea rows='8' cols='20' class='input' name='post[description]' placeholder='Description'></textarea>
+            </div>
+            <div class='inline'>
+              <label for="upload-photo">browse...</label>
+              <input type="file" name="pic" id="upload-photo" name='post[image]' accept=".jpg, .jpeg, .png"/>
+            </div>
+            <div class='inline'>
+              <input class="input-button" type='submit' value='add post' />
+            </div>
+          </div>
+        </form>
+
+        <div id='posts'>
+          <% if ( posts ) { %>
+            <% posts.forEach(function(post) {%>
+              <% let id = post.id %>
+              <div>
+                <h3 style='padding-bottom: 10px;'><%= post.title %></h3>
+                <div class='post'>
+                  <img src="../<%= post.url %>" class='inline' alt="" height='150' align="top" vspace='10' />
+                  <div class='inline text'>
+                    <%= post.description %>
+                  </div>
+                </div>
+                <div>
+                  <form class='inline' action="/posts/post<%= post.id%>" method="post">
+                    <input class="post-delete-button buttons <% getClass(post.author, user) %>" type="submit" name="" value="delete" <% getClass(post.author, user) %>>
+                  </form>
+                  <form class='inline' action='/posts/post<%= post.id %>/edit' method='get'>
+                    <input class="input-button buttons <% getClass(post.author, user) %>" type="submit" name="" value="edit" <% getClass(post.author, user) %>>
+                  </form>
+                  <div class="inline meta">
+                    <div class='inline'>Author: <%= post.author %></div>
+                    <div class='inline' id='update-time-<%= post.id %>'>Last update: <% getDate(post.updatedAt) %></div>
+                  </div>
+                </div>
+              </div>
+              <% function getDate(date) { %>
+                  <% var updatedAt = date + ' '; %>
+                  <% var arr = updatedAt.split(' ') %>
+                  <%= arr[2] %> <%= arr[1] %> <%= arr[3] %> <%= arr[4] %>
+              <% } %>
+
+              <% function getClass(author, user) { %>
+                  <% if ( author != user ) {%>
+                    <% var buttonClass = 'disabled' %>
+                    <%= buttonClass %>
+              <% }} %>
+
+          <% })} %>
+        </div>
+      </div>
+      </div>
+  </body>
+</html>

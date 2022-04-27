@@ -1,0 +1,17 @@
+<nav class="nav">
+  <% if (locals.cookie) { %>
+    <div>
+      <ul>
+        <li><a href='/logout'>logout</a></li>
+      </ul>
+    </div>
+  <% } else { %>
+    <div>
+      <ul>
+        <li><a href='/'>main</a></li>
+        <li><a href='/signin'>signin</a></li>
+        <li><a href='/signup'>signup</a></li>
+      </ul>
+    </div>
+  <% } %>
+</nav>
