@@ -1,1 +1,1 @@
-# express-postgresql-sequelize-app
+# Blog application
